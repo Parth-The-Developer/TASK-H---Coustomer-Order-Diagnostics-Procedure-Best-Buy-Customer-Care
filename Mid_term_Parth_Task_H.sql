@@ -22,11 +22,6 @@ end;
 go
 
 
-
-
-
-
-
  create or alter procedure retailanalitics.ups_GetCustomerServiceOrderDiagnostics 
     @salesorderid int,
     @escalationlevel nvarchar(50) output,
@@ -77,7 +72,6 @@ end;
 go
 
 
-
 create or alter procedure retailanalitics.test_order
     @id int
 as
@@ -94,10 +88,6 @@ begin
     select @ret as [code], @esc as [escalation], @msg as [message];
 end;
 go
-
-
-
-
 
 
 --test cases 
@@ -121,8 +111,6 @@ select
     @escalation as [escalation level], 
     @message as [message];
 go
-
-
 
 --TC2
 
@@ -150,10 +138,8 @@ declare @message nvarchar(250);exec @returncode = retailanalitics.ups_getcustome
     'tc2 - null sales order id check' as [test case],
     @escalation as [captured escalation level];
 
-
 --test 4
- 
-begin transaction;
+ begin transaction;
 
  
 declare @fakeid int;
@@ -171,9 +157,7 @@ declare @returncode int;declare @escalation nvarchar(50);declare @message nvarch
      
 rollback transaction;
 
-
---test 5
- 
+--test 5 
 begin transaction;
 
  
@@ -188,16 +172,10 @@ declare @returncode int;declare @escalation nvarchar(50);declare @message nvarch
     'tc4 - return code check' as [test case],
     @returncode as [captured return code];
 
- 
 rollback transaction;
     
-  
-
---test 6 
-
-declare @returncode int;declare @escalation nvarchar(50);declare @message nvarchar(250);
-
- 
+  --test 6 
+declare @returncode int;declare @escalation nvarchar(50);declare @message nvarchar(250); 
 begin try
     exec @returncode = retailanalitics.ups_getcustomerserviceorderdiagnostics 
         @salesorderid = 'NOT-AN-ID', -- invalid sales ID string
